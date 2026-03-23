@@ -1,0 +1,8 @@
+# Lock files (transient)
+.lock-*
+
+# Logs (session-specific, regenerated)
+logs/
+
+# OS files
+.DS_Store

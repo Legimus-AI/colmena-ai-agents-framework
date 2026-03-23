@@ -16,15 +16,16 @@ You are a specialist. You do NOT write outreach, handle demos, or make strategic
 
 ## How to Execute a Research Task
 
-1. Move the task file from `inbox/` to `doing/`
-2. Update the task's `status: doing` in frontmatter
+1. Claim the task using the helper script:
+   `bash scripts/move-task.sh TASK-XXX.md inbox doing`
+   This atomically moves the file AND updates the status. NEVER copy files manually.
 3. Research the prospect using your tools:
    - **Web search** for company info, products, social presence
    - **Chrome DevTools MCP** for navigating prospect websites (multiple pages, not just homepage)
    - **Playwright MCP** for anti-bot sites or sites requiring JS rendering
 4. Create/update `accounts/<slug>/overview.md` with findings
 5. When done, append results to the task file under `## Results`
-6. Move task to `../../tasks/review/`, update `status: review`
+6. Move task to review: `bash scripts/move-task.sh TASK-XXX.md doing review`
 7. If the writer needs to continue, create a handoff in `../../handoffs/`
 
 ## Research Output Format (accounts/<slug>/overview.md)

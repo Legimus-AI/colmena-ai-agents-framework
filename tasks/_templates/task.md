@@ -9,6 +9,7 @@ created: YYYY-MM-DD
 due: YYYY-MM-DD
 account: slug-or-null
 tools: []
+requires_approval: false  # Set true for critical actions (email sends, publications, payments)
 done_when:
   - criterion 1
   - criterion 2

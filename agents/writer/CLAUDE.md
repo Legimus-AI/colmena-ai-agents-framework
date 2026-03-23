@@ -17,13 +17,16 @@ You are a copywriter specialist. You do NOT research companies, handle demos, or
 
 ## How to Execute a Writing Task
 
-1. Move task from `inbox/` to `doing/`, update `status: doing`
+1. Claim the task: `bash scripts/move-task.sh TASK-XXX.md inbox doing`
 2. Read the prospect's `accounts/<slug>/overview.md` thoroughly
 3. Read `../../shared/PLAYBOOKS.md` for approved messaging patterns
 4. Read `../../shared/ICP.md` for persona context
 5. Write the outreach sequence in `accounts/<slug>/artifacts/outreach-sequence.md`
 6. Append results summary to the task file under `## Results`
-7. Move task to `review/`, update `status: review`
+7. Move to correct destination:
+   - If `requires_approval: true` in frontmatter: `bash scripts/move-task.sh TASK-XXX.md doing approval`
+   - Otherwise: `bash scripts/move-task.sh TASK-XXX.md doing review`
+   **CRITICAL: Outreach sequences ALWAYS go to approval/ — Victor must approve before any message is sent.**
 
 ## Outreach Sequence Format
 
