@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# AOS — Automated maintenance: prune, archive, clean
+# Colmena — Automated maintenance: prune, archive, clean
 # Usage: ./scripts/maintenance.sh [--dry-run]
 #
 # What it does:
@@ -18,7 +18,7 @@ MONTH=$(date +%Y-%m)
 log() { echo "[maintenance] $1"; }
 dry() { [[ "$DRY_RUN" == "--dry-run" ]] && echo "  (dry-run) $1" && return 0 || return 1; }
 
-log "=== AOS Maintenance (${TODAY}) ==="
+log "=== Colmena Maintenance (${TODAY}) ==="
 
 # --- 1. Archive old done tasks ---
 log "Checking tasks/done/ for tasks older than 7 days..."

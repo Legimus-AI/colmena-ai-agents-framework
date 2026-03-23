@@ -1,4 +1,4 @@
-# AOS — Area Operating System
+# Colmena — AI Agent Team Framework
 
 A markdown-based framework for running autonomous AI agent teams that outperform organized human teams.
 
@@ -196,7 +196,7 @@ Then customize: MANIFEST.md, agent CLAUDE.md files, shared/ knowledge.
 
 ## Why This Beats Human Teams
 
-| Dimension | Humans | AOS |
+| Dimension | Humans | Colmena |
 |-----------|--------|-----|
 | Memory | Forgets between meetings | Perfect persistence via files |
 | Handoffs | "I'll Slack you" (context lost) | Structured file with full context |

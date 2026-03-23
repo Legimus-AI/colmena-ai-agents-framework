@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# AOS — Run a full agent cycle in sequence
+# Colmena — Run a full agent cycle in sequence
 # Executes agents in the correct order, validates state between runs,
 # and captures all output to logs.
 #
@@ -46,7 +46,7 @@ Agents: ${AGENTS[*]}
 
 EOF
 
-log "=== AOS Cycle Start: $(date -u +%Y-%m-%dT%H:%M:%SZ) ==="
+log "=== Colmena Cycle Start: $(date -u +%Y-%m-%dT%H:%M:%SZ) ==="
 log "Agents to run: ${AGENTS[*]}"
 log ""
 

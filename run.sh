@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# AOS — Area Operating System: Agent Runner
+# Colmena — Area Operating System: Agent Runner
 # Usage: ./run.sh <agent-name> [--dry-run]
 
 set -euo pipefail
@@ -144,7 +144,7 @@ if [[ "$approval_count" -gt 0 ]]; then
     if command -v curl &> /dev/null; then
         curl -s -X POST "$NOTIFY_URL" \
             -H "Content-Type: application/json" \
-            -d "{\"message\": \"[AOS Ventas] ${approval_count} task(s) need your approval: ${approval_list}\"}" \
+            -d "{\"message\": \"[Colmena Ventas] ${approval_count} task(s) need your approval: ${approval_list}\"}" \
             > /dev/null 2>&1 || true
         echo "  Telegram notification sent."
     fi

@@ -1,5 +1,5 @@
 #!/bin/bash
-# AOS — Create a new Area Operating System
+# Colmena — Create a new Area Operating System
 # Usage: ./create-area.sh <target-path> <area-name> <agent1> <agent2> ...
 #
 # Example: ./create-area.sh /path/to/vault/020_Agentes/Soporte soporte triager resolver escalator
@@ -17,7 +17,7 @@ if [[ -z "$TARGET" || -z "$AREA_NAME" || ${#AGENTS[@]} -eq 0 ]]; then
     echo "Example:"
     echo "  ./create-area.sh ./soporte soporte triager resolver escalator"
     echo ""
-    echo "This creates an AOS skeleton at <target-path> with:"
+    echo "This creates an Colmena skeleton at <target-path> with:"
     echo "  - Area CLAUDE.md and MANIFEST.md"
     echo "  - state/ (STATE.md, QUEUE.md, LOG.md)"
     echo "  - shared/ (empty, ready for area-specific knowledge)"
@@ -28,7 +28,7 @@ if [[ -z "$TARGET" || -z "$AREA_NAME" || ${#AGENTS[@]} -eq 0 ]]; then
     exit 1
 fi
 
-echo "Creating AOS area: ${AREA_NAME}"
+echo "Creating Colmena area: ${AREA_NAME}"
 echo "Target: ${TARGET}"
 echo "Agents: orchestrator ${AGENTS[*]}"
 echo "---"
@@ -118,7 +118,7 @@ cat > "${TARGET}/state/LOG.md" << EOF
 # Activity Log
 
 ## $(date +%Y-%m-%d)
-- [system] AOS area '${AREA_NAME}' created with agents: orchestrator ${AGENTS[*]}
+- [system] Colmena area '${AREA_NAME}' created with agents: orchestrator ${AGENTS[*]}
 EOF
 
 # Orchestrator CLAUDE.md
@@ -252,7 +252,7 @@ if [[ -f "${SCRIPT_DIR}/run.sh" ]]; then
 fi
 
 echo "---"
-echo "AOS area '${AREA_NAME}' created at: ${TARGET}"
+echo "Colmena area '${AREA_NAME}' created at: ${TARGET}"
 echo ""
 echo "Next steps:"
 echo "  1. Edit MANIFEST.md — define missions and tools per agent"

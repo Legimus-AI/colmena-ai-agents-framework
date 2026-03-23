@@ -1,4 +1,4 @@
-# Area Operating System — Ventas (TEST)
+# Colmena — Ventas (TEST)
 
 > This is the area-level CLAUDE.md. Every agent in this area reads this file first.
 

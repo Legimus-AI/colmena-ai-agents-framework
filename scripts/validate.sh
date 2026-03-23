@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# AOS — State validator and auto-fixer
+# Colmena — State validator and auto-fixer
 # Checks the vault for inconsistencies and optionally fixes them.
 #
 # Usage: scripts/validate.sh [--fix]
@@ -15,7 +15,7 @@ warn() { echo "  WARN: $1"; errors=$((errors + 1)); }
 ok() { echo "  OK: $1"; }
 fix() { echo "  FIX: $1"; fixed=$((fixed + 1)); }
 
-echo "=== AOS State Validation ==="
+echo "=== Colmena State Validation ==="
 echo ""
 
 # --- 1. Check for duplicate tasks across status folders ---

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# AOS — Atomic task mover
+# Colmena — Atomic task mover
 # Moves a task file between status folders AND updates the YAML frontmatter status.
 # This is the ONLY correct way to change a task's status.
 #

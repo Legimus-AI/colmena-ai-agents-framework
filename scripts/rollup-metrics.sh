@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# AOS — Rollup metrics from actual file state
+# Colmena — Rollup metrics from actual file state
 # Usage: ./scripts/rollup-metrics.sh [--json]
 # Counts tasks, pipeline stages, accounts from the filesystem.
 # The orchestrator agent can call this to get accurate metrics.
@@ -68,7 +68,7 @@ if [[ "$JSON_MODE" == "--json" ]]; then
 }
 JSON_EOF
 else
-    echo "=== AOS Metrics Rollup (${today}) ==="
+    echo "=== Colmena Metrics Rollup (${today}) ==="
     echo ""
     echo "Tasks:"
     echo "  inbox:  ${tasks_inbox}"
