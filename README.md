@@ -222,16 +222,37 @@ Two scripts run automatically:
 
 The orchestrator generates a weekly report using `rhythm/templates/weekly-report.md` — designed for the CEO to read in under 5 minutes. Includes: North Star status, KRs, decision queue, health score, alerts, and learnings.
 
-## How Victor Interacts
+## How the CEO Works with Areas
+
+The CEO **never opens files**. All interaction happens through the notification channel (Telegram, Slack, etc.). The markdown files are the area's internal records.
+
+### CEO's daily routine (5 minutes)
+
+1. **8am** — Receive 3-line daily status via notification. Glance. Done.
+2. **When notified** — Area sends approval request with full draft + context. Reply: "approved", "change X", or "no". Area executes.
+3. **When escalated** — Area sends decision with options: "A) ... B) ... C) ... I recommend B." Reply with your choice. Area resolves.
+4. **Silence** — Means everything is on track. No news is good news.
+
+### What the CEO does NOT do
+
+- Open files or SSH into servers
+- Fill out `HUMAN_INPUT.md` (the area writes your directives there as an internal log)
+- Check `tasks/approval/` manually (the area sends drafts via notification)
+- Browse `DECISION_QUEUE.md` (the area sends decisions via notification, logs your response there)
+
+### What the CEO does
 
 | Action | How |
 |--------|-----|
-| Give directives | Edit `state/HUMAN_INPUT.md` → add under `## Pending` |
-| Approve outreach | Check `tasks/approval/` → move to `tasks/done/` if OK |
-| Give feedback | Edit task file → add to `## Review Notes` |
-| Override priorities | Edit `state/STATE.md` or `state/QUEUE.md` |
-| Monitor | `./scripts/rollup-metrics.sh` or check `logs/` |
-| Get notified | Telegram notification auto-sent when tasks hit approval/ |
+| Give directives | Tell the orchestrator via notification channel. It records and executes. |
+| Approve outputs | Area sends the draft. CEO replies approve/reject/change. |
+| Make decisions | Area sends options + recommendation. CEO picks. |
+| Change priorities | Tell the orchestrator. It re-prioritizes everything. |
+| Monitor | Read the daily notification + weekly AREA Report summary. |
+
+### How trust grows (Autonomy Ladder)
+
+At **Level 1**, the area asks you about everything external. Over weeks, if your corrections are rare (<20% override rate), the area automatically earns **Level 2** and handles routine tasks alone. By **Level 3**, you only see the weekly report. By **Level 4**, the area proposes strategy changes to you.
 
 ## Creating a New Area
 

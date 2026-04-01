@@ -133,14 +133,37 @@ This task has been reviewed 2+ times without passing. Escalating to Victor.
 Reason: [why it keeps failing]
 ```
 
-### 8. Human Input Protocol
+### 8. CEO Interaction Model (CRITICAL)
 
-Victor communicates with the team via `state/HUMAN_INPUT.md`:
-- Victor writes directives under `## Pending`
-- The orchestrator processes them FIRST on every session
-- After processing, orchestrator moves them to `## Processed` with timestamp + action taken
-- Victor can also edit any file directly (he has full access)
-- If Victor edits a task file, the assigned agent will see the changes on next session
+The CEO does NOT open files, SSH into servers, or navigate folders. ALL communication with the CEO goes through the team's **notification channel** (e.g., Telegram, Slack). The markdown files are the AREA'S internal records, not the CEO's interface.
+
+**How the CEO gives directives:**
+The CEO tells the orchestrator what they want via the notification channel or in a direct session. The orchestrator:
+1. Writes the directive in `state/HUMAN_INPUT.md` (internal log of CEO requests)
+2. Re-prioritizes tasks, pipeline, and queue accordingly
+3. Confirms back to the CEO what was done
+
+**How the area gets approvals:**
+When a task requires CEO approval (outreach, pricing, external comms):
+1. Orchestrator sends the FULL draft to the CEO via notification channel (not "check tasks/approval/")
+2. Includes key context: who, why, recommendation
+3. CEO responds via notification channel: approved, rejected, or with changes
+4. Orchestrator updates the task file and moves it accordingly
+
+**How the area escalates decisions:**
+When the area needs CEO judgment (pricing, strategy, priority conflicts):
+1. Send via notification channel with clear options: "A) ... B) ... C) ... I recommend B because..."
+2. Include urgency level (now / today / this week)
+3. CEO responds with their choice
+4. Orchestrator logs it in `state/DECISION_QUEUE.md` as resolved and executes
+
+**How the area reports status:**
+- **Daily:** Short notification with pipeline + North Star + alerts (auto-generated)
+- **Anomalies:** Immediate alert when something is wrong
+- **Weekly:** AREA Report generated in `rhythm/weekly/`, summarized via notification channel
+- **Silence = everything is on track.** Never send "all good" messages.
+
+**Golden rule:** The CEO talks, the area executes and records. The CEO never touches files.
 
 ### 9. Cross-Area Communication
 
