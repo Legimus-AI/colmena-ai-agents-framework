@@ -101,6 +101,11 @@ state/                 ← Control plane (orchestrator writes)
   QUEUE.md             ← Prioritized task backlog
   LOG.md               ← Activity log (all agents append-only)
   HUMAN_INPUT.md       ← Victor's directives to the team
+  OBJECTIVES.md        ← North Star + Key Results (Jarvis OS)
+  KPI_HISTORY.md       ← Weekly KPI snapshots (append-only)
+  DECISION_QUEUE.md    ← CEO decision queue with urgency levels
+  AUTONOMY_LEVEL.md    ← Current autonomy level + override log
+  HITL_MATRIX.md       ← Risk x Reversibility decision matrix
 
 shared/                ← Team knowledge (orchestrator curates)
   PIPELINE.md          ← Sales pipeline (auto-synced from accounts/)
@@ -108,6 +113,7 @@ shared/                ← Team knowledge (orchestrator curates)
   PLAYBOOKS.md         ← Approved playbooks
   OBJECTIONS.md        ← Objection database
   LEARNINGS.md         ← Shared lessons learned
+  EXPERIMENTS.md       ← Hypothesis testing tracker (Jarvis OS)
 
 agents/                ← One folder per agent
   <name>/CLAUDE.md            ← Identity + instructions
@@ -137,6 +143,9 @@ cross-area/            ← Communication with other areas
 rhythm/                ← Operating cadence
   daily/               ← Daily logs
   weekly/              ← Weekly summaries
+  templates/           ← Report templates (Jarvis OS)
+    weekly-report.md   ← CEO-facing area report template
+    daily-digest.md    ← Telegram notification template
 
 scripts/               ← Automation
   move-task.sh         ← Atomic task mover (agents MUST use this)
@@ -159,6 +168,59 @@ logs/                  ← Agent session output (auto-captured by run.sh)
 6. **Auto-validation** — every run ends with `validate.sh --fix`
 7. **Crash recovery** — stale locks auto-detected, stuck tasks auto-recovered
 8. **Anti-loop** — tasks that bounce 2+ times escalate to human
+
+## Governance --- Jarvis OS
+
+The optional governance layer adds objectives, autonomy levels, decision escalation, anomaly detection, and structured reporting on top of the core file-as-workflow engine.
+
+### Objective-Driven Behavior
+
+Each area has a **North Star** metric and **Key Results** in `state/OBJECTIVES.md`. The orchestrator checks these every session:
+- KRs on track (>=80%) → continue current plan
+- KRs off track (<80%) → create corrective tasks autonomously
+- KRs critical (<50%) → escalate to CEO via `state/DECISION_QUEUE.md`
+- Empty inbox + below target → orchestrator generates work proactively
+
+### Autonomy Ladder (4 Levels)
+
+Areas earn trust over time, reducing the need for human approval:
+
+| Level | Name | What's autonomous |
+|-------|------|-------------------|
+| 1 | Aprendiz | Internal ops only. All external actions need approval |
+| 2 | Operador | Routine external actions (matching playbook) are autonomous |
+| 3 | Manager | Fully autonomous. Weekly report only |
+| 4 | Director | Can propose strategy changes and budget allocation |
+
+Promotion is automatic based on low override rates over consecutive weeks. See `state/AUTONOMY_LEVEL.md`.
+
+### HITL Matrix
+
+`state/HITL_MATRIX.md` defines a **Risk x Reversibility** matrix. For every action category, it specifies whether the action is autonomous, notify-only, or requires CEO approval — per autonomy level. Agents check this before any non-trivial action.
+
+### Decision Queue
+
+When agents face decisions beyond their autonomy level, they add structured items to `state/DECISION_QUEUE.md` with urgency (red/yellow/green), context, options, and a recommendation. The CEO resolves items there.
+
+### Health Monitoring
+
+Two scripts run automatically:
+- **`check-anomalies.sh`** — Detects stale approvals, stalled tasks, off-track objectives, and validation errors. Sends Telegram alerts for critical items.
+- **`health-check.sh`** — Dead Man's Snitch. Alerts if no agent activity for N hours, stale lockfiles, or low disk space.
+
+### Learning Loop
+
+- **Experiments** (`shared/EXPERIMENTS.md`) — Hypotheses are tested, measured, and documented. Failed experiments are learning, not waste.
+- **Playbook proposals** — When the area accumulates 3+ learnings in a week, the orchestrator proposes a playbook change to the CEO.
+
+### KPI Tracking
+
+- **`measure-kpis.sh`** — Runs metrics rollup, calculates health scores, updates OBJECTIVES.md, and appends weekly snapshots to `state/KPI_HISTORY.md`.
+- Weekly snapshots enable trend analysis (week-over-week comparison).
+
+### Area Report
+
+The orchestrator generates a weekly report using `rhythm/templates/weekly-report.md` — designed for the CEO to read in under 5 minutes. Includes: North Star status, KRs, decision queue, health score, alerts, and learnings.
 
 ## How Victor Interacts
 
@@ -193,6 +255,9 @@ Then customize: MANIFEST.md, agent CLAUDE.md files, shared/ knowledge.
 | `scripts/rollup-metrics.sh` | Calculate metrics | Orchestrator, human |
 | `scripts/sync-pipeline.sh` | Sync PIPELINE.md from accounts/ | Orchestrator |
 | `scripts/maintenance.sh` | Archive, prune, rotate | Cron (weekly) |
+| `scripts/check-anomalies.sh` | Detect stale tasks, off-track KRs | run.sh (auto), cron |
+| `scripts/health-check.sh` | Dead Man's Snitch + infra checks | Cron (hourly) |
+| `scripts/measure-kpis.sh` | Calculate KPIs, update objectives | run-cycle.sh, orchestrator |
 
 ## Why This Beats Human Teams
 

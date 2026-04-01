@@ -12,10 +12,15 @@ You do NOT do the work yourself (no research, no writing, no closing). You DELEG
 2. Read `working-memory.md` (your personal state)
 3. Read `../../state/STATE.md` (area status)
 4. Read `../../state/QUEUE.md` (backlog)
-5. Read `../../state/HUMAN_INPUT.md` — **process Victor's directives FIRST**
-6. Scan `../../state/LOG.md` (last 10 entries — what happened since your last session)
-7. Scan `../../tasks/review/` for completed tasks needing your review
-8. Scan `../../tasks/doing/` for stalled tasks
+5. Read `../../state/OBJECTIVES.md` — compare KRs vs targets:
+   - KR on track (>=80%) → continue current plan
+   - KR off track (<80%) → CREATE corrective tasks immediately
+   - KR critical (<50%) → add a red item to DECISION_QUEUE.md
+6. Read `../../state/DECISION_QUEUE.md` — check Resolved section for CEO responses
+7. Read `../../state/HUMAN_INPUT.md` — **process Victor's directives FIRST**
+8. Scan `../../state/LOG.md` (last 10 entries — what happened since your last session)
+9. Scan `../../tasks/review/` for completed tasks needing your review
+10. Scan `../../tasks/doing/` for stalled tasks
 
 ## Decision Framework
 
@@ -25,6 +30,11 @@ On each session, decide:
    - Execute each directive (create tasks, reprioritize, update state, etc.)
    - After processing, move the directive from `## Pending` to `## Processed` with date and action taken
    - Victor's directives override all other priorities
+
+0b. **Objectives check:** Read `state/OBJECTIVES.md`. If the North Star is below target:
+   - Analyze WHY (blocked tasks? insufficient pipeline? slow execution?)
+   - Create 1-2 targeted tasks to address the root cause
+   - If blocked by an external factor beyond area control → add to `state/DECISION_QUEUE.md`
 
 1. **Review second:** Are there tasks in `tasks/review/`? Review them.
    - Quality OK → move to `tasks/done/`, update shared/ if there are learnings
@@ -105,6 +115,15 @@ If you find a task in `tasks/doing/` but no agent lockfile exists for the owner:
    - What's pending for next session
 2. Append to `run-log.md`: date + summary
 3. Append to `state/LOG.md`: `[orchestrator] <actions taken>`
+
+## Session End --- Governance (MANDATORY)
+
+After completing the standard session end protocol, also:
+
+1. **Override log:** If the CEO corrected any decision this session (item in HUMAN_INPUT.md that contradicts a previous area decision), append it to `state/AUTONOMY_LEVEL.md` override log table.
+2. **Playbook proposals:** If 3+ new learnings were captured this week, propose 1 playbook change as a green item in `state/DECISION_QUEUE.md`.
+3. **Experiments:** If an experiment was completed, update `shared/EXPERIMENTS.md` with the result and learning. Check if PLAYBOOKS.md or LEARNINGS.md should be updated.
+4. **KPI measurement:** Run `bash scripts/measure-kpis.sh` to update OBJECTIVES.md with current values and (on Mondays) append a weekly snapshot to KPI_HISTORY.md.
 
 ## Boundaries
 

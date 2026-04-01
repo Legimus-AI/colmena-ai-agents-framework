@@ -133,6 +133,13 @@ echo ""
 echo "--- Post-run validation ---"
 bash "${AREA_ROOT}/scripts/validate.sh" --fix 2>&1 || true
 
+# --- Check for anomalies (Jarvis OS) ---
+if [[ -f "$AREA_ROOT/scripts/check-anomalies.sh" ]]; then
+    echo ""
+    echo "--- Anomaly check ---"
+    bash "$AREA_ROOT/scripts/check-anomalies.sh" --notify-url "$NOTIFY_URL" 2>&1 || true
+fi
+
 # --- Notify Victor if tasks landed in approval/ ---
 approval_count=$(find "${AREA_ROOT}/tasks/approval" -name "TASK-*.md" 2>/dev/null | wc -l | tr -d ' ')
 if [[ "$approval_count" -gt 0 ]]; then

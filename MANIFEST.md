@@ -3,6 +3,13 @@
 ## Orchestrator
 - **Mission:** Prioritize, assign, review, consolidate. The "manager" of the sales area.
 - **Writes to:** state/, shared/, tasks/, rhythm/, handoffs/
+  - `state/OBJECTIVES.md` — update current values (NOT targets)
+  - `state/KPI_HISTORY.md` — via measure-kpis.sh (append-only)
+  - `state/DECISION_QUEUE.md` — add items + process resolved
+  - `state/AUTONOMY_LEVEL.md` — append to override log only (level is CEO-write)
+  - `shared/EXPERIMENTS.md` — propose, update status, record results
+  - Note: `state/HITL_MATRIX.md` is **CEO-only write** (agents read it)
+  - Note: `state/AUTONOMY_LEVEL.md` level/promotion fields are **CEO-only write**
 - **Reads:** everything
 - **Tools:** web search, file read/write
 - **MCP servers:** none (no browser needed)

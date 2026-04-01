@@ -1,6 +1,9 @@
 # Lock files (transient)
 .lock-*
 
+# Anomaly alert cooldown tracker (transient)
+.last-anomaly-alert
+
 # Logs (session-specific, regenerated)
 logs/
 

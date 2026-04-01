@@ -28,6 +28,12 @@ Each piece of data lives in ONE file only. Never duplicate.
 | Outreach drafts | accounts/<slug>/artifacts/ | writer |
 | Objections DB | shared/OBJECTIONS.md | closer |
 | Learnings | shared/LEARNINGS.md | orchestrator (consolidates) |
+| Objectives + KRs | state/OBJECTIVES.md | orchestrator (current values), CEO (targets) |
+| KPI history | state/KPI_HISTORY.md | measure-kpis.sh (append-only) |
+| CEO decisions | state/DECISION_QUEUE.md | all agents (add), CEO (resolve) |
+| Autonomy level | state/AUTONOMY_LEVEL.md | CEO (level), orchestrator (override log) |
+| HITL rules | state/HITL_MATRIX.md | CEO only |
+| Experiments | shared/EXPERIMENTS.md | orchestrator |
 
 ### 2. Minimum Context Principle
 
@@ -177,6 +183,36 @@ created: 2026-03-23
 ### 10. Date Convention
 
 All dates in ISO 8601: `2026-03-23T14:30:00-05:00` (Lima timezone, UTC-5).
+
+## Governance --- Jarvis OS
+
+The area operates with a governance layer that provides objectives, autonomy, decision escalation, and anomaly detection.
+
+### Autonomy Ladder
+
+The area has an autonomy level (1-4) defined in `state/AUTONOMY_LEVEL.md`. This determines what actions agents can take without CEO approval:
+
+- **Level 1 (Aprendiz):** All external actions require approval. Default for new areas.
+- **Level 2 (Operador):** Routine actions are autonomous. High-risk still needs approval.
+- **Level 3 (Manager):** Fully autonomous operations. Weekly report only.
+- **Level 4 (Director):** Can propose strategy changes and budget allocation.
+
+Before any action, check `state/HITL_MATRIX.md` to determine if it's autonomous, notify-only, or requires HITL approval at the current level.
+
+### Decision Queue
+
+When an agent faces a decision that exceeds its autonomy level, it adds an item to `state/DECISION_QUEUE.md` with urgency, context, options, and a recommendation. The CEO resolves items there. The orchestrator checks the Resolved section on every session.
+
+### Objective-Driven Behavior
+
+Every session, the orchestrator checks `state/OBJECTIVES.md`:
+
+1. If Key Results are **on track** (>=80%): continue current plan.
+2. If Key Results are **off track** (50-79%): create corrective tasks immediately. Do NOT wait for CEO input.
+3. If Key Results are **critical** (<50%): add a red item to `DECISION_QUEUE.md` and create corrective tasks.
+4. If the inbox is empty and KRs are below target: **generate work proactively**. The area PURSUES its North Star autonomously.
+
+The area does not sit idle when there are no tasks. If the North Star is below target, the orchestrator creates tasks to close the gap.
 
 ## Invocation
 

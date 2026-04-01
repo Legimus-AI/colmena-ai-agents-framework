@@ -55,6 +55,13 @@ log "--- Pre-cycle validation ---"
 bash "${AREA_ROOT}/scripts/validate.sh" --fix >> "$CYCLE_LOG" 2>&1 || true
 log ""
 
+# --- Measure KPIs (Jarvis OS) ---
+log "--- Measuring KPIs ---"
+if [[ -f "${AREA_ROOT}/scripts/measure-kpis.sh" ]]; then
+    bash "${AREA_ROOT}/scripts/measure-kpis.sh" >> "$CYCLE_LOG" 2>&1 || true
+fi
+log ""
+
 cycle_ok=true
 for agent in "${AGENTS[@]}"; do
     log "--- Running: ${agent} ---"
