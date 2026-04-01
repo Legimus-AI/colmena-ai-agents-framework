@@ -85,6 +85,33 @@ else
     alerts+=("Validation errors detected")
 fi
 
+# --- 5. Stale hot leads (high-score accounts with no recent activity) ---
+echo "[5] Checking stale hot leads..."
+STALE_HOT_HOURS="${STALE_HOT_HOURS:-48}"
+for overview in "${AREA_ROOT}"/accounts/*/overview.md; do
+    [[ -f "$overview" ]] || continue
+    slug=$(basename "$(dirname "$overview")")
+    score=$(grep -m1 "^score:" "$overview" 2>/dev/null | sed 's/score: *//' | tr -d ' ' || echo "0")
+    if [[ "$score" -ge 70 ]] 2>/dev/null; then
+        activity_file="${AREA_ROOT}/accounts/${slug}/activity.md"
+        if [[ -f "$activity_file" ]]; then
+            if [[ "$(uname)" == "Darwin" ]]; then
+                act_epoch=$(stat -f "%m" "$activity_file")
+            else
+                act_epoch=$(stat -c "%Y" "$activity_file")
+            fi
+            age_hours=$(( (now_epoch - act_epoch) / 3600 ))
+        else
+            # No activity file = never contacted
+            age_hours=999
+        fi
+        if [[ $age_hours -ge $STALE_HOT_HOURS ]]; then
+            echo "  ALERT: Hot lead ${slug} (score ${score}) — no activity for ${age_hours}h"
+            alerts+=("Stale hot lead: ${slug} (score ${score}, ${age_hours}h idle)")
+        fi
+    fi
+done
+
 # --- Summary ---
 echo ""
 echo "Alerts found: ${#alerts[@]}"

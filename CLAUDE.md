@@ -42,6 +42,7 @@ Each agent reads MAX 5 files on session start:
 2. Your own `agents/<you>/CLAUDE.md` — your role
 3. Your own `agents/<you>/working-memory.md` — your state
 4. `state/STATE.md` — area context
+4b. `state/OBJECTIVES.md` — North Star + KRs (orchestrator only)
 5. Your assigned task file (1 file from tasks/)
 
 Only read additional files if the task explicitly requires it.
