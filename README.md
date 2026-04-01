@@ -279,6 +279,8 @@ Then customize: MANIFEST.md, agent CLAUDE.md files, shared/ knowledge.
 | `scripts/check-anomalies.sh` | Detect stale tasks, off-track KRs | run.sh (auto), cron |
 | `scripts/health-check.sh` | Dead Man's Snitch + infra checks | Cron (hourly) |
 | `scripts/measure-kpis.sh` | Calculate KPIs, update objectives | run-cycle.sh, orchestrator |
+| `scripts/generate-daily-status.sh` | 3-line daily summary + notification | Cron (daily 8am) |
+| `scripts/generate-weekly-report.sh` | CEO-facing weekly AREA Report | Orchestrator, cron (weekly) |
 
 ## Why This Beats Human Teams
 
